@@ -7,7 +7,7 @@ Start a cron job to call the script(s) with the following command:
 And enter the following text.
 
 ```
-20 * * * * /home/pool-user/checkBlockHeight.sh
+15 * * * * /home/pool-user/checkBlockHeight.sh
 1 * * * * /home/pool-user/sendMyTip.sh
 ```
 
