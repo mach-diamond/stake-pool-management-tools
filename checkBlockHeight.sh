@@ -1,6 +1,8 @@
 #!/bin/bash
 
-# Obtain Local Node Block HeightmyLastBlockHeight="$(jcli rest v0 node stats get -h "http://127.0.0.1:3100/api" | grep -o "lastBlockHeight: \"[[:digit:]]\{1,64\}\"")"# echo "$myLastBlockHeight"
+# Obtain Local Node Block Height
+myLastBlockHeight="$(jcli rest v0 node stats get -h "http://127.0.0.1:3100/api" | grep -o "lastBlockHeight: \"[[:digit:]]\{1,64\}\"")"
+# echo "$myLastBlockHeight"
 blockHeightNode=$(echo $myLastBlockHeight | cut -d '"' -f 2)
 # echo "$blockHeightNode"
 
