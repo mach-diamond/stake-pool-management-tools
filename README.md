@@ -1,4 +1,4 @@
-# stake-pool-management-tools
+# [CSTL] Cambridge Castle Node Management
 
 Start a cron job to call the script(s) with the following command:
 
@@ -17,7 +17,3 @@ And enter the following text.
 Ensure the job is running with:
 
 `crontab -l`
-
-
-
-
