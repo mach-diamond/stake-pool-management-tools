@@ -8,7 +8,8 @@ And enter the following text.
 
 ```
 * * * * * /home/pool-user/checkBlockHeight.sh
-*/5 * * * * /home/pool-user/sendMyTip.sh
+* * * * * /home/pool-user/sendMyTip.sh
+0 * * * * sync; echo 3 > /proc/sys/vm/drop_caches
 ```
 
 [sendMyTip.sh can be found here](https://github.com/papacarp/pooltool.io/blob/master/sendmytip/shell/sendmytip.sh)
