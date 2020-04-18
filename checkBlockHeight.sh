@@ -6,7 +6,7 @@ SHELL=/bin/bash
 LANG=en_US.UTF-8
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
 
-maxDelta=24
+maxDelta=21
 
 # THIS SHOULD TAKE CARE OF JCLI PATH (ASSUMES $PATH ; /usr/local/bin ; or same directory)
 JCLI="$(command -v jcli)"
@@ -17,6 +17,7 @@ JCLI="$(command -v jcli)"
 myLastBlockHeight=$($JCLI rest v0 node stats get -h "http://127.0.0.1:3100/api" | grep -o "lastBlockHeight: \"[[:digit:]]\{1,64\}\"")
 blockHeightNode=$(echo $myLastBlockHeight | cut -d '"' -f 2)
 
+# Check if blockheight is obtainable, if not its likely booting
 if [[ $(echo $blockHeightNode | grep -E "^[[:digit:]]{1,}$") ]]
 then
 
@@ -30,8 +31,10 @@ then
    # If Block Height is Frozen, Restart the Node
    if [ $myBlockLag -gt $maxDelta ]
    then
-      # echo "Restarting Node: $restartTime" >> /home/pool-user/blockDivergence.txt
-      echo "Block Divergence: $myBlockLag" >> /home/pool-user/blockDivergence.txt
+      restartTime=$(date +"%T")
+      upTime=$(Time=$($JCLI rest v0 node stats get -h "http://127.0.0.1:3100/api" | grep -o "uptime: [[:digit:]]\{1,64\}")
+      runTime=$(echo $uptime | grep -o "[[:digit:]]\{1,64\}")
+      echo "Block Divergence: $myBlockLag    Run Time: $runTime    Restart Time: $restartTime" >> /home/pool-user/blockDivergence.log
       /bin/systemctl restart jormungandr.service
    fi
 fi
