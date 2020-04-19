@@ -6,7 +6,7 @@ SHELL=/bin/bash
 LANG=en_US.UTF-8
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
 
-maxDelta=21
+maxDelta=20
 
 # THIS SHOULD TAKE CARE OF JCLI PATH (ASSUMES $PATH ; /usr/local/bin ; or same directory)
 JCLI="$(command -v jcli)"
@@ -32,8 +32,8 @@ then
    if [ $myBlockLag -gt $maxDelta ]
    then
       restartTime=$(date +"%T")
-      upTime=$(Time=$($JCLI rest v0 node stats get -h "http://127.0.0.1:3100/api" | grep -o "uptime: [[:digit:]]\{1,64\}")
-      runTime=$(echo $uptime | grep -o "[[:digit:]]\{1,64\}")
+      upTime=$($JCLI rest v0 node stats get -h "http://127.0.0.1:3100/api" | grep -o "uptime: [[:digit:]]\{1,64\}")
+      runTime=$(echo $upTime | grep -o "[[:digit:]]\{1,64\}")
       echo "Block Divergence: $myBlockLag    Run Time: $runTime    Restart Time: $restartTime" >> /home/pool-user/blockDivergence.log
       /bin/systemctl restart jormungandr.service
    fi
