@@ -16,7 +16,7 @@ JCLI="$(command -v jcli)"
 isRunning=$($JCLI rest v0 node stats get -h "http://127.0.0.1:3100/api" | grep "state: Running")
 
 # If bootstrapping, no need to check node
-if [ $isRunning ]
+if [[ $isRunning ]]
    then
 
    # Obtain Local Node Block Height
